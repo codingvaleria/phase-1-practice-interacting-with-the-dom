@@ -4,15 +4,16 @@ let counternumber = counter.textContent;
 console.log(counternumber);
 
 let seconds = 0;
+let intervalID;
 
 function count() {
-  setInterval(function () {
+  intervalID = setInterval(function () {
     seconds += 1;
     counter.textContent = seconds;
   }, 1000);
 }
 
-// document.addEventListener("DOMContentLoaded", count);
+document.addEventListener("DOMContentLoaded", count);
 
 // Manually increment and decrement the counter using the plus and minus buttons.
 let addBtn = document.querySelector("#plus");
@@ -41,3 +42,28 @@ function decrement() {
 // function likesCount() {
 //   console.log ("likes")
 // }
+
+// Pause counter
+let pauseBtn = document.getElementById("pause");
+pauseBtn.addEventListener("click", pause);
+
+function pause(button) {
+  clearInterval(intervalID);
+  buttonsArray.forEach(disableButton);
+  pauseBtn.textContent = "resume";
+}
+
+const buttons = document.getElementsByTagName("button");
+let buttonsArray = [];
+
+for (let i = 0; i < buttons.length; i++) {
+  if (buttons[i].id !== "pause") {
+    buttonsArray.push(buttons[i]);
+  }
+}
+
+console.log(buttonsArray);
+
+function disableButton(button) {
+  button.setAttribute("disabled", true);
+}
